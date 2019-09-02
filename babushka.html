@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Babushka</title>
+
+    <style>
+
+
+        body {
+            margin: 0 auto;
+
+        }
+
+         #grid {
+            /*            width: 80vw;*/
+            margin: 8vw 8vw;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-gap: 1rem;
+            align-self: center;
+
+/*            border: 2px solid black;*/
+
+        }
+
+        header {
+            display: flex;
+            position: fixed;
+            width: 100%;
+            margin: 0px 10px 0px 20px;
+
+        }
+
+         nav {
+            display: flex;
+             width: 100%;
+            justify-content: space-around;
+             margin: 20px 0 0 0;
+
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+
+        #menuen {
+            padding: 2rem;
+            border: 2px solid black;
+            background-color: rgba(255, 0, 0, 0.27);
+
+        }
+
+        .menuknap {
+            border-top: 5px solid white;
+            border-bottom: 5px solid white;
+            font-family: sans-serif;
+            position: fixed;
+            color: white;
+            margin-top: 20px;
+            padding: 0.3rem;
+
+        }
+
+
+        #splash {
+            display: flex;
+            background-image: url(imgs/large/russisktapas.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+            width: 100%;
+            height: 56.6vw;
+            align-items: center;
+        justify-content: center;
+
+
+        }
+
+        .splashtext {
+            border-top: 10px solid #fff;
+            border-bottom: 10px solid #fff;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-family: 'bebas neue';
+            text-transform: uppercase;
+            font-size: 15rem;
+
+        }
+
+        h1 {
+            font-size: 4rem;
+            text-align: center;
+            color: #000;
+
+
+        }
+
+        h2 {
+
+            line-height: 0;
+        }
+
+        h3, h2, h1 {
+            font-family: Work sans, sans-serif;
+            font-weight: 600;
+            text-transform: capitalize;
+
+        }
+
+        h4 {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        h5 {
+            text-transform: capitalize;
+            font-style: italic;
+            font-size: 0.7rem;
+        }
+
+        p {
+            font-family: roboto;
+            font-size: 0.8rem;
+        }
+
+        #menu a {
+            margin-left: 30px;
+            padding: 0 0rem 0 1rem;
+              border-left: 5px solid #fff;
+            font-size: 1.2rem;
+            font-family: work sans, sans-serif;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        article {
+
+
+        }
+
+
+
+        .pris {
+            text-align: right;
+            font-size: 3rem;
+            margin: 0;
+            color: #ffd9bd;
+        }
+
+
+    </style>
+</head>
+<body>
+
+     <header>
+
+     <nav id="menu">
+         <a href="">RESERVER</a>
+         <a href="">STAFF</a>
+         <a href="">MANIFEST</a>
+         <a href="">KONTAKT</a>
+     </nav>
+       <div class="menuknap">MENU</div>
+     </header>
+
+
+     <article id="splash">
+     <div class="splashtext">Babushka</div>
+     </article>
+      <h1>MENU</h1>
+   <section id="grid"></section>
+
+
+
+  <template>
+      <article id="menuen">
+         <h3 class="kategori"></h3>
+          <h2 class="navn"></h2>
+          <h5 class="oprindelse"></h5>
+          <img src="" alt="" class="billede">
+          <h4 class="kort"></h4>
+          <p class="beskrivelse"></p>
+           <p class="pris"></p>
+      </article>
+  </template>
+
+
+   <script>
+
+      document.addEventListener("DOMContentLoaded", start);
+
+       let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
+
+    let forret =[]
+//    let hovedret=[]
+//    let dessert=[]
+
+    function start(){
+        console.log(start);
+
+        hentJson();
+
+    }
+
+       async function hentJson() {
+           console.log("hentJson");
+
+           const JsonURL = "https://spreadsheets.google.com/feeds/list/1vwQOcmA-6MkD2Z7UHsy70pfKX1Z1LmRXidOf29je20Q/od6/public/values?alt=json";
+
+           const response = await fetch(JsonURL);
+           console.log(response);
+
+           forret = await response.json();
+           console.log(forret);
+
+
+           visJson();
+
+       }
+
+       function visJson() {
+
+        const temp = document.querySelector("template").content;
+       const dest = document.querySelector("#grid");
+
+
+       forret.feed.entry.forEach(mad => {
+                               console.log(mad);
+
+           const klon = temp.cloneNode(true);
+            console.log(klon);
+
+    klon.querySelector("img").src = "/imgs/small/" + mad.gsx$billede.$t + "-sm.jpg";
+    klon.querySelector("img").alt = "Billede af" + mad.gsx$billede.$t;
+    klon.querySelector(".kategori").textContent = mad.gsx$kategori.$t;
+    klon.querySelector(".kort").textContent = mad.gsx$kort.$t;
+    klon.querySelector(".navn").textContent = mad.gsx$navn.$t;
+    klon.querySelector(".oprindelse").textContent = "("+mad.gsx$oprindelse.$t +")" ;
+    klon.querySelector(".pris").textContent = mad.gsx$pris.$t + ",-";
+    klon.querySelector(".beskrivelse").textContent = mad.gsx$lang.$t;
+
+                  dest.appendChild(klon);
+
+
+       });
+
+       }
+
+       function toggleMenu() {
+    console.log("toggleMenu");
+
+    document.querySelector("#menu").classList.toggle("hidden");
+
+    let erSkjult = document.querySelector("#menu").classList.contains("hidden");
+
+    if (erSkjult == true) {
+
+        document.querySelector(".menuknap").textContent = "X";
+
+    } else {
+
+        document.querySelector(".menuknap").textContent = "MENU";
+
+    }
+}
+
+
+//= gsx$id: {$t: "12"}
+//= gsx$oprindelse: {$t: "Krigien"}
+//= gsx$pris: {$t: "49"}
+//
+
+    </script>
+</body>
+</html>
