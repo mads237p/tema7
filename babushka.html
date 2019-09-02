@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta lang="da" charset="UTF-8">
     <title>Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: "Bebas Neue W01 Regular";
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix");
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix") format("eot"), url("Fonts/1444649/e0d6f852-5401-4bbf-9672-47a50c5c87c6.woff2") format("woff2"), url("Fonts/1444649/7fedd582-6ae3-4850-be2f-4acae2e74fa5.woff") format("woff"), url("Fonts/1444649/d6e08ef3-40db-4ac3-82df-f062f55a72f5.ttf") format("truetype");
+        }
 
 
         body {
@@ -12,17 +18,16 @@
 
         }
 
-         #grid {
+        #grid {
             /*            width: 80vw;*/
             margin: 8vw 8vw;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             grid-gap: 1rem;
             align-self: center;
-
-/*            border: 2px solid black;*/
-
         }
+
+
 
         header {
             display: flex;
@@ -32,11 +37,11 @@
 
         }
 
-         nav {
+        #menu {
             display: flex;
-             width: 100%;
+            width: 100%;
             justify-content: space-around;
-             margin: 20px 0 0 0;
+            margin: 20px 0 0 0;
 
         }
 
@@ -51,15 +56,15 @@
 
 
         #menuen {
-            padding: 2rem;
-            border: 2px solid black;
-            background-color: rgba(255, 0, 0, 0.27);
+            padding: 1rem;
+            background-color: rgba(232, 232, 232, 0.27);
 
         }
 
+
         .menuknap {
-            border-top: 5px solid white;
-            border-bottom: 5px solid white;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
             font-family: sans-serif;
             position: fixed;
             color: white;
@@ -68,21 +73,23 @@
 
         }
 
-
         #splash {
             display: flex;
+            display: block;
             background-image: url(imgs/large/russisktapas.jpg);
             background-size: cover;
             background-attachment: fixed;
             width: 100%;
             height: 56.6vw;
             align-items: center;
-        justify-content: center;
+            justify-content: center;
 
 
         }
 
         .splashtext {
+            position: relative;
+            top: 200px;
             border-top: 10px solid #fff;
             border-bottom: 10px solid #fff;
             margin: 0;
@@ -99,41 +106,52 @@
             text-align: center;
             color: #000;
 
-
         }
 
         h2 {
 
-            line-height: 0;
+            font-size: 1.3rem;
+            line-height: 20px;
+            margin: 1rem;
         }
 
-        h3, h2, h1 {
+        h3,
+        h2,
+        h1 {
             font-family: Work sans, sans-serif;
             font-weight: 600;
             text-transform: capitalize;
+            margin-bottom: 10px;
 
+        }
+
+        h3 {
+            display: none;
         }
 
         h4 {
+            font-family: 'work sans', sans-serif;
             font-size: 0.9rem;
-            margin: 0;
+            margin: 1rem;
         }
 
         h5 {
+            font-family: 'work sans', sans-serif;
             text-transform: capitalize;
             font-style: italic;
             font-size: 0.7rem;
+            margin: 0;
         }
 
         p {
-            font-family: roboto;
+            font-family: 'work sans', sans-serif;
             font-size: 0.8rem;
         }
 
         #menu a {
             margin-left: 30px;
             padding: 0 0rem 0 1rem;
-              border-left: 5px solid #fff;
+            border-left: 5px solid #fff;
             font-size: 1.2rem;
             font-family: work sans, sans-serif;
         }
@@ -143,143 +161,248 @@
             text-decoration: none;
         }
 
-        article {
-
-
+        #buttonbox {
+            margin-bottom: -60px;
+            text-align: center;
         }
 
+        button {
+            font-family: 'bebas neue';
+            text-align: center;
+            border: none;
+            border-right: 1px solid black;
+            font-size: 2rem;
+            padding-right: 2rem;
 
+        }
 
         .pris {
             text-align: right;
+            bottom: 0;
             font-size: 3rem;
-            margin: 0;
-            color: #ffd9bd;
+            margin-top: 20px;
+            margin-bottom: 0;
+            color: #393939;
+        }
+
+        .valgt {
+            border-bottom: 1px solid #000;
+        }
+
+        .enter {
+            position: relative;
+            width: 200px;
+            text-align: center;
+            top: 250px;
+            left: 540px;
+            font-size: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.28);
+            background-color: rgba(255, 255, 255, 0.65);
+
+        }
+
+        .dropdown {
+            font-family: 'bebas neue';
+            text-align: center;
+            border: none;
+            border-right: 1px solid black;
+            font-size: 2rem;
+            padding-right: 2rem;
+            color: #000;
+            position: relative;
+            display: inline-block;
+            margin-left: 0.7rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        #arrow {
+            display: inline-block;
+            transform: rotate(180deg);
+            margin: 0 0.4rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <nav id="menu">
+            <a href="">RESERVER</a>
+            <a href="">STAFF</a>
+            <a href="">MANIFEST</a>
+            <a href="">KONTAKT</a>
+        </nav>
+        <div class="menuknap">MENU</div>
+    </header>
+
+
+    <article id="splash">
+        <h1 class="splashtext">Babushka</h1>
+        <p class="enter">ENTER</p>
+    </article>
+
+    <h1>MENU</h1>
+
+
+
+    <nav id="buttonbox">
+        <button class="filter valgt" data-kategori="alle">Alle </button>
+        <button data-kategori="forretter"> Forretter </button>
+        <button data-kategori="hovedretter"> Hovedretter </button>
+        <button data-kategori="desserter"> Dessert </button>
+
+        <a class="dropdown">
+            <span>Ekstra <div id="arrow">&and;</div></span>
+            <div class="dropdown-content">
+                <button data-kategori="drikkevarer"> Drikkevarer </button>
+                <button data-kategori="sideorders"> Sideorders </button>
+            </div>
+        </a>
+
+    </nav>
+
+
+    <section id="grid"></section>
+
+
+
+    <template>
+        <article id="menuen">
+            <h3 class="kategori"></h3>
+            <h2 class="navn"></h2>
+            <h5 class="oprindelse"></h5>
+            <img src="" alt="" class="billede">
+            <h4 class="kort"></h4>
+            <!--          <p class="beskrivelse"></p>-->
+            <p class="pris"></p>
+        </article>
+    </template>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
+
+        let madOversigt = []
+
+        let filter = "alle";
+
+        function start() {
+            console.log(start);
+
+            let button = document.querySelectorAll("button");
+
+
+            button.forEach(knap => knap.addEventListener("click", filtrerMad));
+
+            hentJson();
+
         }
 
 
-    </style>
-</head>
-<body>
+        function filtrerMad() {
+            console.log("filtrerMad");
 
-     <header>
+            let valgt = document.querySelector(".valgt");
 
-     <nav id="menu">
-         <a href="">RESERVER</a>
-         <a href="">STAFF</a>
-         <a href="">MANIFEST</a>
-         <a href="">KONTAKT</a>
-     </nav>
-       <div class="menuknap">MENU</div>
-     </header>
+            valgt.classList.remove("valgt");
 
+            filter = this.dataset.kategori; //Sæt variable filter til aktuel værdi
 
-     <article id="splash">
-     <div class="splashtext">Babushka</div>
-     </article>
-      <h1>MENU</h1>
-   <section id="grid"></section>
+            this.classList.add("valgt");
 
+            vis();
 
+        }
 
-  <template>
-      <article id="menuen">
-         <h3 class="kategori"></h3>
-          <h2 class="navn"></h2>
-          <h5 class="oprindelse"></h5>
-          <img src="" alt="" class="billede">
-          <h4 class="kort"></h4>
-          <p class="beskrivelse"></p>
-           <p class="pris"></p>
-      </article>
-  </template>
+        async function hentJson() {
+            console.log("hentJson");
+
+            const JsonURL = "https://spreadsheets.google.com/feeds/list/1vwQOcmA-6MkD2Z7UHsy70pfKX1Z1LmRXidOf29je20Q/od6/public/values?alt=json";
+
+            const response = await fetch(JsonURL);
+            console.log(response);
+
+            madOversigt = await response.json();
+            console.log(madOversigt);
 
 
-   <script>
+            vis();
 
-      document.addEventListener("DOMContentLoaded", start);
+        }
 
-       let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
-
-    let forret =[]
-//    let hovedret=[]
-//    let dessert=[]
-
-    function start(){
-        console.log(start);
-
-        hentJson();
-
-    }
-
-       async function hentJson() {
-           console.log("hentJson");
-
-           const JsonURL = "https://spreadsheets.google.com/feeds/list/1vwQOcmA-6MkD2Z7UHsy70pfKX1Z1LmRXidOf29je20Q/od6/public/values?alt=json";
-
-           const response = await fetch(JsonURL);
-           console.log(response);
-
-           forret = await response.json();
-           console.log(forret);
+        function vis() {
 
 
-           visJson();
 
-       }
+            const temp = document.querySelector("template").content;
+            const dest = document.querySelector("#grid");
 
-       function visJson() {
-
-        const temp = document.querySelector("template").content;
-       const dest = document.querySelector("#grid");
+            dest.textContent = "";
 
 
-       forret.feed.entry.forEach(mad => {
-                               console.log(mad);
+            madOversigt.feed.entry.forEach(mad => {
+                console.log(mad);
 
-           const klon = temp.cloneNode(true);
-            console.log(klon);
+                if (mad.gsx$kategori.$t == filter || filter == "alle") {
 
-    klon.querySelector("img").src = "/imgs/small/" + mad.gsx$billede.$t + "-sm.jpg";
-    klon.querySelector("img").alt = "Billede af" + mad.gsx$billede.$t;
-    klon.querySelector(".kategori").textContent = mad.gsx$kategori.$t;
-    klon.querySelector(".kort").textContent = mad.gsx$kort.$t;
-    klon.querySelector(".navn").textContent = mad.gsx$navn.$t;
-    klon.querySelector(".oprindelse").textContent = "("+mad.gsx$oprindelse.$t +")" ;
-    klon.querySelector(".pris").textContent = mad.gsx$pris.$t + ",-";
-    klon.querySelector(".beskrivelse").textContent = mad.gsx$lang.$t;
+                    const klon = temp.cloneNode(true);
+                    console.log(klon);
 
-                  dest.appendChild(klon);
+                    klon.querySelector("img").src = "/imgs/small/" + mad.gsx$billede.$t + "-sm.jpg";
+                    klon.querySelector("img").alt = "Billede af" + mad.gsx$billede.$t;
+                    klon.querySelector(".kategori").textContent = mad.gsx$kategori.$t;
+                    klon.querySelector(".kort").textContent = mad.gsx$kort.$t + ".";
+                    klon.querySelector(".navn").textContent = mad.gsx$navn.$t;
+                    //                    klon.querySelector(".oprindelse").textContent = "(" + mad.gsx$oprindelse.$t + ")";
+                    klon.querySelector(".pris").textContent = mad.gsx$pris.$t + ",-";
+                    //    klon.querySelector(".beskrivelse").textContent = mad.gsx$lang.$t;
 
+                    dest.appendChild(klon);
+                }
 
-       });
+            });
 
-       }
-
-       function toggleMenu() {
-    console.log("toggleMenu");
-
-    document.querySelector("#menu").classList.toggle("hidden");
-
-    let erSkjult = document.querySelector("#menu").classList.contains("hidden");
-
-    if (erSkjult == true) {
-
-        document.querySelector(".menuknap").textContent = "X";
-
-    } else {
-
-        document.querySelector(".menuknap").textContent = "MENU";
-
-    }
-}
+        }
 
 
-//= gsx$id: {$t: "12"}
-//= gsx$oprindelse: {$t: "Krigien"}
-//= gsx$pris: {$t: "49"}
-//
+        function toggleMenu() {
+            console.log("toggleMenu");
 
+            document.querySelector("#menu").classList.toggle("hidden");
+
+            let erSkjult = document.querySelector("#menu").classList.contains("hidden");
+
+            if (erSkjult == true) {
+
+                document.querySelector(".menuknap").textContent = "X";
+
+            } else {
+
+                document.querySelector(".menuknap").textContent = "MENU";
+
+            }
+        }
+
+
+        //= gsx$id: {$t: "12"}
+        //= gsx$oprindelse: {$t: "Krigien"}
+        //= gsx$pris: {$t: "49"}
+        //
     </script>
-</body>
-</html>
+</body></html>
