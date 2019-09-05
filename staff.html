@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+
+    <style>
+        .person {
+            border: 2px solid #ededed;
+            padding: 20px;
+            background-color: rgba(216, 216, 216, 0.48);
+            /*                   text-align: center;*/
+            line-height: 20px;
+            cursor: pointer;
+
+
+        }
+
+        section {
+            /*            width: 80vw;*/
+            margin: 8vw 8vw;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 1rem;
+            align-self: center;
+            text-transform: capitalize;
+
+        }
+
+        nav {
+            margin: 40px;
+            text-align: center;
+        }
+
+         #menu {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 0;
+
+        }
+
+         .menuknap {
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            font-family: sans-serif;
+            position: fixed;
+            color: black;
+            padding: 0.3rem;
+             margin-left: 10px;
+
+        }
+
+         #menu a {
+            margin-left: 30px;
+            padding: 0 0rem 0 1rem;
+            border-left: 5px solid #000;
+            font-size: 1.2rem;
+            font-family: 'work sans', sans-serif;
+        }
+
+
+        .valgt {
+            background-color: red;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1rem;
+           font-family: 'bebas neue', sans-serif;
+
+        }
+
+        button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        article img {
+            width: 100%;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #detalje {
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 0, 0, 0.47);
+            margin: 0;
+            overflow: scroll;
+
+
+        }
+
+        #detalje .luk {
+            position: fixed;
+            top: 0;
+            left: 0;
+            font-size: 4rem;
+            margin: 2rem;
+
+        }
+
+        #detalje .person {
+            line-height: 20px;
+            width: 30vw;
+            min-height: 50vh;
+            margin: 1rem auto;
+            padding: 1rem;
+            background-color: white;
+            cursor: pointer;
+
+        }
+
+        .backButton {
+            position: relative;
+            top: 70px;
+            text-align: center;
+            font-size: 4rem;
+            padding: 0.6rem;
+
+        }
+
+        .hidden {
+            visibility: hidden;
+            display: none;
+        }
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+        <header>
+
+        <nav id="menu" class="hidden">
+
+            <a href="resever.html">RESERVER</a>
+            <a href="staff.html">STAFF</a>
+            <a href="contact.html">KONTAKT</a>
+        </nav>
+        <div class="menuknap">MENU</div>
+         <a class="backButton" href="">⇍</a>
+    </header>
+
+    <h1>STAFF BABUSHKA</h1>
+
+    <nav>
+        <button class="filter valgt" data-køn="alle">Alle </button>
+        <button data-job="tjener">Tjener </button>
+        <button data-job="kok">Kok </button>
+        <button data-job="Opvasker">Opvasker </button>
+        <button data-job="familie">Familie</button>
+        <button data-job="Æresgæst">Special</button>
+
+    </nav>
+
+    <section id="liste"></section>
+
+    <section id="detalje">
+        <article class="person">
+            <button class="luk">X</button>
+            <h2></h2>
+             <p class="job"> </p>
+            <img src="" alt="">
+            <p class="alder"> </p>
+            <p class="alder"> </p>
+            <p class="køn"> </p>
+            <p class="historie"> </p>
+            <p class="status"> </p>
+        </article>
+    </section>
+
+    <template>
+        <article class="person">
+            <h2></h2>
+            <p class="job"> </p>
+            <img src="" alt="">
+            <p class="alder"> </p>
+            <p class="alder"> </p>
+            <p class="køn"> </p>
+            <p class="historie"> </p>
+            <p class="status"> </p>
+
+        </article>
+    </template>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        let minJson = [];
+        let filter = "alle";
+
+        const URLparams = new URLSearchParams(window.location.search);
+        const github = URLparams.get("github");
+
+        let tilbage = document.querySelector(".backButton");
+        tilbage.addEventListener("click", ()=> {
+            tilbage.href = "babushka.html";
+        })
+
+        function start() {
+            console.log("start");
+
+
+            let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
+            const filterKnapper = document.querySelectorAll("nav button");
+
+            const detalje = document.querySelector("#detalje");
+            const personer = document.querySelector(".person");
+
+            detalje.style.display = "none";
+
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrer));
+            console.log(filterKnapper);
+            hentJson();
+
+        }
+
+
+        function filtrer() {
+
+            const valgt = document.querySelector(".valgt");
+            valgt.classList.remove("valgt");
+            filter = this.dataset.job;
+
+
+            this.classList.add("valgt");
+            vis();
+        }
+
+
+        //Funtionen der henter data fra Google Sheet (via URL)//
+        async function hentJson() {
+            const jsonUrl = "https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json";
+
+            const response = await fetch(jsonUrl);
+            console.log(response);
+            minJson = await response.json();
+
+            vis();
+        }
+
+        //funtionen der viser data i liste view//
+        function vis() {
+
+            const temp = document.querySelector("template").content;
+            const dest = document.querySelector("#liste");
+
+            dest.textContent = "";
+
+            minJson.feed.entry.forEach(person => {
+
+                if (person.gsx$job.$t == filter || filter == "alle") { //tjek hvilket data som findes og sammenlign med filter //
+
+                    const klon = temp.cloneNode(true);
+                    klon.querySelector("h2").textContent = person.gsx$navn.$t;
+                    klon.querySelector("h2").setAttribute("id", "person");
+                    klon.querySelector("img").src = person.gsx$billede.$t;
+                    klon.querySelector("img").alt = "Billede af " + person.navn;
+                    klon.querySelector(".alder").textContent = `Alder: ${person.gsx$alder.$t}`;
+                    klon.querySelector(".køn").textContent = `Køn: ${person.gsx$køn.$t}`;
+                    klon.querySelector(".historie").textContent = `Historie: ${person.gsx$historie.$t}`;
+                    klon.querySelector(".status").textContent = `Status: ${person.gsx$status.$t}`;
+                    klon.querySelector(".job").textContent = person.gsx$job.$t;
+
+
+                    klon.querySelector(".person").addEventListener("click", () => {
+                        visDetalje(person);
+                    })
+
+
+
+                    dest.appendChild(klon);
+
+                }
+
+            })
+
+        }
+
+        function visDetalje(person) {
+            console.log(person);
+
+            detalje.style.display = "block";
+
+            document.querySelector("#detalje h2").textContent = person.gsx$navn.$t;
+            document.querySelector("#detalje h2").setAttribute("id", "person");
+            document.querySelector("#detalje img").src = person.gsx$billede.$t;
+            document.querySelector("#detalje img").alt = "Billede af " + person.navn;
+            document.querySelector("#detalje .alder").textContent = `Alder: ${person.gsx$alder.$t}`;
+            document.querySelector("#detalje .køn").textContent = `Køn: ${person.gsx$køn.$t}`;
+            document.querySelector("#detalje .historie").textContent = `Historie: ${person.gsx$historie.$t}`;
+            document.querySelector("#detalje .status").textContent = `Status: ${person.gsx$status.$t}`;
+            document.querySelector("#detalje .job").textContent = person.gsx$job.$t;
+
+            document.querySelector("img").alt = "Billede af " + person.navn;
+
+            const luk = document.querySelector(".luk");
+
+            luk.addEventListener("click", ()=> {
+
+                detalje.style.display = "none";
+            })
+
+
+
+        }
+
+
+        function skjulDisplay() {
+
+            history.back();
+
+        }
+
+
+        function toggleMenu() {
+            console.log("toggleMenu");
+
+            document.querySelector("#menu").classList.toggle("hidden");
+
+            let erSkjult = document.querySelector("#menu").classList.contains("hidden");
+
+            if (erSkjult == true) {
+
+                document.querySelector(".menuknap").textContent = "MENU";
+
+            } else {
+
+                document.querySelector(".menuknap").textContent = "X";
+
+            }
+        }
+
+
+    </script>
+</body></html>

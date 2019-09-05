@@ -18,10 +18,6 @@
 
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
         #grid {
             /*            width: 80vw;*/
             margin: 8vw 8vw;
@@ -41,14 +37,7 @@
 
         }
 
-        #menu {
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            margin: 15px 0 0 20px;
-            justify-content: flex-start;
 
-        }
 
         img {
             width: 100%;
@@ -67,6 +56,7 @@
 
 
         #menuen {
+            cursor: pointer;
             padding: 1rem;
             background-color: rgba(232, 232, 232, 0.27);
 
@@ -80,12 +70,11 @@
             position: fixed;
             color: white;
             margin-top: 20px;
-            padding: 0.1rem;
-            font-size: 1.6rem;
+            padding: 0.3rem;
 
         }
 
-        #splash {
+       #splash {
             display: block;
             background-image: url(imgs/large/russisktapas.jpg);
             background-size: cover;
@@ -110,6 +99,7 @@
             font-size: 8rem;
 
         }
+
 
         h1 {
             font-size: 4rem;
@@ -157,20 +147,24 @@
             font-size: 0.8rem;
         }
 
+          #menu {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 20px 0 0 0;
+
+        }
+
         #menu a {
             margin-left: 30px;
             padding: 0 0rem 0 1rem;
             border-left: 5px solid #fff;
-            font-size: 0.7rem;
+            font-size: 1.2rem;
             font-family: 'work sans', sans-serif;
         }
 
-        a {
-            color: white;
-            text-decoration: none;
-        }
 
-        #buttonbox {
+       #buttonbox {
             position: relative;
             margin-bottom: 0px;
             left: 0px;
@@ -187,6 +181,13 @@
 
         }
 
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+
+
         .pris {
             display: block;
             text-align: end;
@@ -199,7 +200,7 @@
             border-bottom: 1px solid #000;
         }
 
-        .enter {
+       .enter {
             position: relative;
             width: 200px;
             text-align: center;
@@ -213,7 +214,8 @@
             border-radius: 50%;
         }
 
-        .dropdown {
+
+ .dropdown {
             font-family: 'bebas neue';
             text-align: center;
             border: none;
@@ -250,10 +252,12 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 1);
             margin: 0;
             overflow: scroll;
+            flex-direction: column;
             justify-content: space-around;
+            cursor: pointer;
 
         }
 
@@ -261,8 +265,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            font-size: 5rem;
-            margin: 0 4rem;
+            font-size: 4rem;
+            margin: 4rem;
             cursor: pointer;
 
         }
@@ -275,13 +279,13 @@
         }
 
         #detalje .menuen {
-            width: 45vw;
+            line-height: 20px;
+            width: 40vw;
             min-height: 50vh;
             margin: 1rem auto;
             padding: 1rem;
             background-color: white;
             cursor: pointer;
-            filter: drop-shadow(1px 1px 10px #c6c6c6);
 
         }
 
@@ -292,19 +296,23 @@
        #detalje .beskrivelse {
             display: flex;
            line-height: normal;
-           font-size: 1.2rem;
+           font-size: 1.3rem;
         }
 
-        .footer {
+        #menuen .id {
+            display: none;
+        }
+    .footer {
             margin: 0;
-            padding: 2vw 20vw;
+            padding: 5vw 20vw;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             background-color: #f7f7f7;
-            font-size: 2rem;
+        font-size: 1.4rem;
 
 
         }
+
 
         @media only screen and (min-width: 600px) {
 
@@ -426,11 +434,13 @@
 
 
   }
+
     </style>
 </head>
 <body>
 
     <header>
+
 
         <nav id="menu" class="hidden">
             <a href="resever.html">RESERVER</a>
@@ -453,21 +463,20 @@
         <button data-kategori="hovedretter"> Hovedretter </button>
         <button data-kategori="desserter"> Dessert </button>
 
-        <div class="dropdown">
-            <div>Ekstra <div id="arrow">&and;</div></div>
+        <a class="dropdown">
+            <span>Ekstra <div id="arrow">&and;</div></span>
             <div class="dropdown-content">
                 <button data-kategori="drikkevarer"> Drikkevarer </button>
                 <button data-kategori="sideorders"> Sideorders </button>
             </div>
-        </div>
+        </a>
 
     </nav>
 
     <section id="grid"></section>
     <section id="detalje">
-    <a class="luk">X</a>
      <article class="menuen">
-
+           <a class="luk">X</a>
             <h3 class="kategori"></h3>
             <h2 class="navn"></h2>
             <h5 class="oprindelse"></h5>
@@ -475,6 +484,7 @@
             <h4 class="kort"></h4>
             <p class="beskrivelse"></p>
             <p class="pris"></p>
+
         </article>
  </section>
 
@@ -485,11 +495,12 @@
             <h5 class="oprindelse"></h5>
                 <img src="" alt="" class="billede">
             <h4 class="kort"></h4>
-            <!--          <p class="beskrivelse"></p>-->
             <p class="pris"></p>
+            <p class="id"></p>
+
         </article>
     </template>
-<section class="footer">
+                <section class="footer">
   <div>
    <p>KONTAKT:
 <p>Grønnegade 97
@@ -502,8 +513,17 @@
 
 </section>
 
+
+
     <script>
+
+        const URLparams = new URLSearchParams(window.location.search);
+        const id = URLparams.get("id");
+
         document.addEventListener("DOMContentLoaded", start);
+
+
+
 
         let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
         let enter = document.querySelector(".enter");
@@ -515,6 +535,7 @@
 
         function start() {
             console.log(start);
+
 
             let button = document.querySelectorAll("nav button");
 
@@ -577,10 +598,8 @@
 
                     klon.querySelector(".kort").textContent = mad.gsx$kort.$t + ".";
                     klon.querySelector(".navn").textContent = mad.gsx$navn.$t;
-                    //                    klon.querySelector(".oprindelse").textContent = "(" + mad.gsx$oprindelse.$t + ")";
                     klon.querySelector(".pris").textContent = mad.gsx$pris.$t + ",-";
-                    //    klon.querySelector(".beskrivelse").textContent = mad.gsx$lang.$t;
-
+                    klon.querySelector(".id").textContent = mad.gsx$id.$t;
                     klon.querySelector("#menuen").addEventListener("click", ()=> {
 
                         visDetalje(mad);
@@ -596,22 +615,8 @@
         function visDetalje(mad) {
             console.log("mad");
 
-            detalje.style.display = "block";
-            detalje.style.transition = "all 2s"
-            document.querySelector("#detalje .kategori").textContent = mad.gsx$kategori.$t;
-            document.querySelector("#detalje h2").textContent = mad.gsx$navn.$t;
-            document.querySelector("#detalje h2").setAttribute("id", "mad");
-            document.querySelector("#detalje img").src = "imgs/large/" + mad.gsx$billede.$t + ".jpg";
-            document.querySelector("#detalje img").alt = "Billede af" + mad.gsx$billede.$t;
-            document.querySelector("#detalje .beskrivelse").textContent = mad.gsx$lang.$t;
-            document.querySelector("#detalje .oprindelse").textContent = "Oprindelse: " + mad.gsx$oprindelse.$t;
+          location.href = `detalje.html?id=${mad.gsx$id.$t}`;
 
-
-            document.querySelector("img").alt = "Billede af " + mad.navn;
-
-                const luk = document.querySelector(".luk");
-
-            luk.addEventListener("click", skjulDisplay);
 
         }
 
@@ -641,6 +646,5 @@
             }
         }
 
-        //
     </script>
 </body></html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta lang="da" charset="UTF-8">
+    <title>Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @font-face {
+            font-family: "Bebas Neue W01 Regular";
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix");
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix") format("eot"), url("Fonts/1444649/e0d6f852-5401-4bbf-9672-47a50c5c87c6.woff2") format("woff2"), url("Fonts/1444649/7fedd582-6ae3-4850-be2f-4acae2e74fa5.woff") format("woff"), url("Fonts/1444649/d6e08ef3-40db-4ac3-82df-f062f55a72f5.ttf") format("truetype");
+        }
+
+        img {
+            width: 100%;
+
+        }
+
+        #detalje {
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            overflow: scroll;
+
+        }
+
+        #detalje .luk {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 4rem;
+            margin: 1.5rem 2rem;
+            padding: 2rem;
+            border: 1px solid black;
+            font-family: 'bebas neue', sans-serif;
+            cursor: pointer;
+
+        }
+
+        #detalje .menuen {
+            width: 70vw;
+            min-height: 50vh;
+            margin: 1rem auto;
+            padding: 2rem 0rem 0rem 1rem;
+            background-color: white;
+            border: 1px solid black;
+
+        }
+
+        button {
+            position: fixed;
+            border: none;
+            top: 0;
+            left: 0;
+
+        }
+
+        h2 {
+            font-family: 'bebas neue', sans-serif;
+            letter-spacing: 7px;
+            text-align: center;
+        }
+
+        p {
+            font-family: 'work sans', sans-serif;
+        }
+
+        .id {
+            display: none;
+
+        }
+
+        input {
+            display: block;
+            height: 2vw;
+            width: 18vw;
+            margin: 1rem;
+
+        }
+
+        .reserve {
+            width: 60vw;
+            height: 25vw;
+        }
+
+         #menu {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 0;
+
+        }
+
+         .menuknap {
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            font-family: sans-serif;
+            position: fixed;
+            color: black;
+            padding: 0.3rem;
+             margin-left: 10px;
+
+        }
+
+         #menu a {
+            margin-left: 30px;
+            padding: 0 0rem 0 1rem;
+            border-left: 5px solid #000;
+            font-size: 1.2rem;
+            font-family: 'work sans', sans-serif;
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        #buttonbox {
+            margin-bottom: -60px;
+            text-align: center;
+        }
+
+
+          .dropdown {
+            font-family: 'bebas neue';
+            text-align: center;
+            border: none;
+            border-right: 1px solid black;
+            font-size: 2rem;
+            padding-right: 2rem;
+            color: #000;
+            position: relative;
+            display: inline-block;
+            margin-left: 0.7rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        #arrow {
+            display: inline-block;
+            transform: rotate(180deg);
+            margin: 0 0.4rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+        .backButton {
+            position: relative;
+            top: 70px;
+            text-align: center;
+            font-size: 4rem;
+            padding: 0.6rem;
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+
+        <nav id="menu" class="hidden">
+
+            <a href="">RESERVER</a>
+            <a href="staff.html">STAFF</a>
+            <a href="">KONTAKT</a>
+        </nav>
+        <div class="menuknap">MENU</div>
+         <a class="backButton" href="">⇍</a>
+    </header>
+
+<h2>RESERVE</h2>
+    <section id="detalje">
+        <article class="menuen">
+          <input name="fname" type="text" placeholder="Name">
+          <input name="lname" type="text" placeholder="Surname">
+          <input type="email" placeholder="Email">
+          <input class="reserve" type="text" placeholder="What can we do for you?">
+
+        </article>
+    </section>
+<script>
+
+     document.addEventListener("DOMContentLoaded", start);
+
+        let menuknap = document.querySelector(".menuknap").addEventListener("click", toggleMenu);
+
+    function start() {
+
+         let tilbage = document.querySelector(".backButton");
+        tilbage.addEventListener("click", ()=> {
+            tilbage.href = "babushka.html";
+        })
+
+
+        toggleMenu();
+    }
+
+        function toggleMenu() {
+            console.log("toggleMenu");
+
+            document.querySelector("#menu").classList.toggle("hidden");
+
+            let erSkjult = document.querySelector("#menu").classList.contains("hidden");
+
+            if (erSkjult == true) {
+
+                document.querySelector(".menuknap").textContent = "MENU";
+
+            } else {
+
+                document.querySelector(".menuknap").textContent = "X";
+
+            }
+        }
+
+        //
+    </script>
+</body></html>

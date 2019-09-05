@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta lang="da" charset="UTF-8">
+    <title>Babushka</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: "Bebas Neue W01 Regular";
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix");
+            src: url("Fonts/1444649/3d9ec9a9-76a2-4cfe-b376-76e7340c3b50.eot?#iefix") format("eot"), url("Fonts/1444649/e0d6f852-5401-4bbf-9672-47a50c5c87c6.woff2") format("woff2"), url("Fonts/1444649/7fedd582-6ae3-4850-be2f-4acae2e74fa5.woff") format("woff"), url("Fonts/1444649/d6e08ef3-40db-4ac3-82df-f062f55a72f5.ttf") format("truetype");
+        }
+
+        img {
+            width: 100%;
+
+        }
+
+        #detalje2 {
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            overflow: scroll;
+
+        }
+
+        #detalje2 .luk {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 4rem;
+            margin: 1.5rem 2rem;
+            padding: 2rem;
+            border: 1px solid black;
+            font-family: 'bebas neue', sans-serif;
+            cursor: pointer;
+
+        }
+
+        #detalje2 .menuen {
+            line-height: 20px;
+            width: 50vw;
+            min-height: 50vh;
+            margin: 1rem auto;
+            padding: 2rem 10rem;
+            background-color: white;
+            border: 1px solid black;
+
+        }
+
+        button {
+            position: fixed;
+            border: none;
+            top: 0;
+            left: 0;
+
+        }
+
+        h2 {
+            font-family: 'bebas neue', sans-serif;
+            letter-spacing: 7px;
+        }
+
+        p {
+            font-family: 'work sans', sans-serif;
+        }
+
+        .id {
+            display: none;
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <section id="detalje2">
+        <article class="menuen">
+            <a class="luk">X</a>
+            <a href="" class="id"></a>
+            <h3 class="kategori"></h3>
+            <h2 class="navn"></h2>
+            <h5 class="oprindelse"></h5>
+            <img src="" alt="" class="billede">
+            <h4 class="kort"></h4>
+            <p class="beskrivelse"></p>
+            <p class="pris"></p>
+            <p class="id" class="githublink"></p>
+        </article>
+    </section>
+
+
+    <script>
+
+
+        let madOversigt;
+         const jsonUrl = "https://spreadsheets.google.com/feeds/list/1vwQOcmA-6MkD2Z7UHsy70pfKX1Z1LmRXidOf29je20Q/od6/public/values?alt=json";
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log("start");
+
+            hentJson();
+        }
+
+                    async function hentJson() {
+
+            const response = await fetch(jsonUrl);
+            console.log(response);
+            madOversigt = await response.json();
+            vis();
+        }
+
+            function vis() {
+
+                  const URLparams = new URLSearchParams(window.location.search);
+                const aha = URLparams.get("id");
+
+
+            madOversigt.feed.entry.forEach(mad => {
+
+                if (mad.gsx$id.$t == aha) { //tjek hvilket data som findes og sammenlign med filter //
+
+            document.querySelector("#detalje2 .kategori").textContent = mad.gsx$kategori.$t;
+            document.querySelector("#detalje2 h2").textContent = mad.gsx$navn.$t;
+            document.querySelector("#detalje2 h2").setAttribute("id", "mad");
+            document.querySelector("#detalje2 img").src = "imgs/large/" + mad.gsx$billede.$t + ".jpg";
+            document.querySelector("#detalje2 img").alt = "Billede af" + mad.gsx$billede.$t;
+            document.querySelector("#detalje2 .beskrivelse").textContent = mad.gsx$lang.$t;
+            document.querySelector("#detalje2 .id").textContent = mad.gsx$id.$t;
+            document.querySelector("#detalje2 .oprindelse").textContent = "Oprindelse: " + mad.gsx$oprindelse.$t;
+
+
+            document.querySelector("img").alt = "Billede af " + mad.navn;
+
+document.querySelector(".luk").addEventListener("click", () => {
+                        history.back();
+
+
+    dest.appendChild(klon);
+
+
+                    })
+
+                }
+
+            })
+
+        }
+
+
+        //        history.back();
+
+
+    </script>
+</body></html>
